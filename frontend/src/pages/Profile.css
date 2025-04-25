@@ -1,0 +1,9 @@
+.profile-page {
+    padding: 2rem;
+  }
+  .profile-page a {
+    display: inline-block;
+    margin-top: 1rem;
+    color: #007bff;
+  }
+  

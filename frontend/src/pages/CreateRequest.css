@@ -1,0 +1,15 @@
+.create-request {
+    max-width: 400px;
+    margin: auto;
+    padding: 2rem;
+  }
+  .create-request input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 1rem;
+  }
+  .create-request button {
+    width: 100%;
+    padding: 10px;
+  }
+  

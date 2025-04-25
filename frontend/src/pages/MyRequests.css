@@ -1,0 +1,83 @@
+.my-requests {
+  padding: 2rem;
+}
+
+.request-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: 0.3s ease;
+  background-color: #fff;
+}
+
+.request-card:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.request-card h3 {
+  margin-top: 0;
+  color: #333;
+}
+
+.request-card p {
+  margin: 8px 0;
+  font-size: 16px;
+}
+
+.status {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
+.status.searching {
+  background-color: #d1f7d6;
+  color: #1b5e20;
+}
+
+.status.pending {
+  background-color: #fff9c4;
+  color: #f57f17;
+}
+
+.status.completed {
+  background-color: #ffcccb;
+  color: #b71c1c;
+}
+
+.button-group {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.view-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+.view-button:hover {
+  background-color: #0056b3;
+}
+
+.delete-button {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+.delete-button:hover {
+  background-color: #c0392b;
+}
