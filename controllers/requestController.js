@@ -22,7 +22,14 @@ export const createRequest = async (req, res) => {
 export const getNearRequests = async (req, res) => {
     try
     {
-        const {latitude, longitude} = req.query;
+        //const {latitude, longitude} = req.query;
+    const userLocation = req.user.location;
+
+    if (!userLocation || !userLocation.coordinates) {
+      return res.status(400).json({ message: "User location not available" });
+    }
+
+    const [longitude, latitude] = userLocation.coordinates;
         const requests = await ProductRequest.find({
             location: {
                 $near: {
@@ -40,3 +47,40 @@ export const getNearRequests = async (req, res) => {
         res.status(500).json({message: error.message});
     }
 };
+
+export const getMyRequests = async (req, res) => {
+    try {
+      const requests = await ProductRequest.find({ buyerid: req.user._id });
+      res.status(200).json({ requests });
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  };
+
+
+// added the delete request function
+
+export const deleteRequest = async (req, res) => {
+  try {
+    const { requestId } = req.params;
+
+    const request = await ProductRequest.findById(requestId);
+
+    if (!request) {
+      return res.status(404).json({ message: "Request not found!" });
+    }
+
+    if (request.buyerid.toString() !== req.user._id.toString()) {
+      return res.status(403).json({ message: "Unauthorized to delete this request." });
+    }
+
+    await ProductRequest.findByIdAndDelete(requestId); // ✅ This works
+
+    res.status(200).json({ message: "Request deleted successfully." });
+  } catch (error) {
+    console.error("Delete error:", error);
+    res.status(500).json({ message: error.message });
+  }
+};
+
+  
