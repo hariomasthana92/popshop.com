@@ -39,7 +39,7 @@ router.post('/register', async (req, res) => {
 
         await user.save();
 
-        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET || "yourSuperSecretKey123", { expiresIn: '1h' });
         res.status(201).json({ message: "User created!", token });
 
     } catch (error) {
@@ -70,13 +70,31 @@ router.post('/login', async (req, res) => {
             return res.status(400).json({ message: "Incorrect email or password!" });
         }
 
-        const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1h' });
-        res.json({ message: "Login successful", token });
+        const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET || "yourSuperSecretKey123", { expiresIn: '1h' });
+        res.json({
+            message: "Login successful",
+            token,
+            user: {
+              _id: user._id,
+              name: user.name,
+              email: user.email,
+              role: user.role,
+              location: user.location,
+            }
+          });
 
     } catch (error) {
         console.error("Login Error:", error);
         res.status(500).json({ message: error.message });
     }
 });
+
+router.get('/temp', (req, res) => {
+    res.send('Temp route is working');
+});
+router.get('/users', async (req, res) => {
+    const users = await User.find();
+    res.json(users);
+  });
 
 export default router;
