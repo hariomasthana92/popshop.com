@@ -1,10 +1,14 @@
-import mongoose from "mongoose";
+import mongoose, { connect } from "mongoose";
+
 const connectDB = async () => {
-    console.log("MongoDB URI:", process.env.DB_CONNECT);
-    try {
-        const conn = await mongoose.connect(process.env.DB_CONNECT);
+    console.log("MongoDB URI:", process.env.DB_CONNECT || "mongodb://localhost:27017" );
+    try
+    {
+        const conn = await mongoose.connect(process.env.DB_CONNECT || "mongodb://localhost:27017");
         console.log(`MongoDB Connected: ${conn.connection.host}`);
-    } catch (error) {
+    }
+    catch (error)
+    {
         console.error(`Error: ${error.message}`);
         process.exit(1);
     }
