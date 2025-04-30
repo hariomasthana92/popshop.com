@@ -3,6 +3,7 @@ import { createServer } from 'http';
 import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
+import os from 'os';
 import connectDB from './db/db.js';
 import authRoutes from './routes/authRoutes.js';
 import requestroutes from './routes/requesroutes.js';
@@ -51,6 +52,23 @@ io.on('connection', (socket) => {
 
 // Start the server
 const PORT = process.env.PORT || 5000;
-server.listen(PORT, () => {
+
+function getLocalIP() {
+  const interfaces = os.networkInterfaces();
+  for (const interfaceName in interfaces) {
+      for (const iface of interfaces[interfaceName]) {
+          if (iface.family === 'IPv4' && !iface.internal) {
+              return iface.address;
+          }
+      }
+  }
+  return 'localhost';
+}
+
+server.listen(PORT, '0.0.0.0', () => {
+  const localIP = getLocalIP();
   console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`);
+  console.log(`Server running at:`);
+  console.log(`  Local:            http://localhost:${PORT}`);
+  console.log(`  On Your Network:  http://${localIP}:${PORT}`);
 });

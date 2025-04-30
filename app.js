@@ -21,6 +21,22 @@ app.use('/request', requesroutes);
 app.use('/response', responseRoutes);
 app.use('/user', userRoutes);
 
+
+app.get('/api/geocode', async (req, res) => {
+    try {
+      const response = await axios.get('https://us1.locationiq.com/v1/search.php', {
+        params: {
+          key: process.env.LOCATIONIQ_KEY,
+          q: req.query.q,
+          format: 'json'
+        }
+      });
+      res.json(response.data);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  });
+
 app.get('/', (req, res) => {
     res.send('popshop is running....');
 });

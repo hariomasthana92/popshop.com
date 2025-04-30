@@ -16,7 +16,11 @@ export const registerUser = async (req, res) => {
             name,
             email,
             password: hashedPassword,
-            role
+            role,
+            location: {
+                type: "Point",
+                coordinates: [location.longitude, location.latitude]
+            }
         });
         await newUser.save();
         res.status(201).json({message: "User created!"});
