@@ -1,15 +1,29 @@
 import ProductRequest from "../models/productrequest.js";
+import axios from "axios";
 export const createRequest = async (req, res) => {
     try {
-        const {productname, productquantity, price, status,location} = req.body;
+        const {productname, productquantity, longitude,latitude} = req.body;
+        console.log("Loaded LocationIQ Key:", process.env.LOCATIONIQ_API_KEY);
+
+        const geoResponse = await axios.get("https://us1.locationiq.com/v1/reverse", {
+          params: {
+            key: process.env.LOCATIONIQ_API_KEY,
+            lat: latitude,
+            lon: longitude,
+            format: "json",
+          },
+        });
+        const address = geoResponse.data.display_name;
+
         const newRequest = new ProductRequest({
             buyerid: req.user._id,
             productname,
             productquantity, 
             location: {
                 type: "Point",
-                coordinates: [req.body.longitude, req.body.latitude]
-            }
+                coordinates: [longitude,latitude]
+            },
+            address,
         });
 
         await newRequest.save();
@@ -56,9 +70,6 @@ export const getMyRequests = async (req, res) => {
       res.status(500).json({ message: error.message });
     }
   };
-
-
-// added the delete request function
 
 export const deleteRequest = async (req, res) => {
   try {

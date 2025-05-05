@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.post('/register', async (req, res) => {
     try {
-        const { name, email, password, role, coordinates } = req.body;
+        const { name, email, password, role } = req.body;
 
         console.log(" Register body:", req.body);
 
@@ -17,9 +17,9 @@ router.post('/register', async (req, res) => {
             return res.status(400).json({ message: "All fields are required." });
         }
 
-        if (!Array.isArray(coordinates) || coordinates.length !== 2) {
-            return res.status(400).json({ message: "Coordinates must be [longitude, latitude]." });
-        }
+        // if (!Array.isArray(coordinates) || coordinates.length !== 2) {
+        //     return res.status(400).json({ message: "Coordinates must be [longitude, latitude]." });
+        // }
 
         let user = await User.findOne({ email });
         if (user) {
@@ -32,10 +32,10 @@ router.post('/register', async (req, res) => {
             email,
             password: hashedPassword,
             role,
-            location: {
-                type: "Point",
-                coordinates: coordinates
-            }
+            // location: {
+            //     type: "Point",
+            //     coordinates: coordinates
+            // }
         });
 
         await user.save();
@@ -79,7 +79,7 @@ router.post('/login', async (req, res) => {
               name: user.name,
               email: user.email,
               role: user.role,
-              location: user.location,
+            //   location: user.location,
             }
           });
 

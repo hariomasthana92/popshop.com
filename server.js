@@ -1,5 +1,5 @@
-import { Server } from 'socket.io';
-import { createServer } from 'http';
+import {Server} from 'socket.io';
+import {createServer} from 'http';
 import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
@@ -26,6 +26,7 @@ const io = new Server(server, {
     origin: '*',
   }
 });
+
 app.set('io', io);
 
 app.get('/', (req, res) => {
@@ -37,7 +38,6 @@ app.use('/api/requests', requestroutes);
 app.use('/api/responses', responseRoutes);
 app.use('/api/users', userRoutes);
 
-// Socket.io events
 io.on('connection', (socket) => {
   console.log('A user connected:', socket.id);
 
@@ -50,7 +50,6 @@ io.on('connection', (socket) => {
   });
 });
 
-// Start the server
 const PORT = process.env.PORT || 5000;
 
 function getLocalIP() {
