@@ -1,0 +1,24 @@
+.slider-container {
+  width: 390px;
+  height: 100px;
+  overflow: hidden;
+  margin: 7px auto;
+  border: 2px solid black;
+}
+
+.slider-track {
+  display: flex;
+  width: calc(200px * 20); /* 10 images x 2 (looped) */
+  animation: scroll 30s linear infinite;
+}
+
+.slider-track img {
+  width: 200px;
+  height: 100px;
+  object-fit: cover;
+}
+
+@keyframes scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-2000px); }
+}

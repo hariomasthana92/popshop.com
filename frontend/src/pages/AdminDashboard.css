@@ -1,0 +1,104 @@
+.admin-dashboard {
+    background: linear-gradient(135deg, #0e0e1a, #1a1a2e);
+    color: #e0e0ff;
+    min-height: 100vh;
+    padding: 2rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  .admin-header {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid #333;
+    padding-bottom: 1rem;
+  }
+  
+  .admin-avatar {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    border: 3px solid #00f2ff;
+    box-shadow: 0 0 20px #00f2ff66;
+  }
+  
+  .admin-info h2 {
+    margin: 0;
+    font-size: 1.8rem;
+    color: #ffffff;
+  }
+  
+  .admin-info p {
+    font-size: 1rem;
+    color: #bbb;
+  }
+  
+  .admin-sections {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  .admin-card {
+    background: #1f1f2e;
+    border-radius: 12px;
+    padding: 1.5rem;
+    border: 1px solid #333;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.05);
+    transition: transform 0.3s ease;
+  }
+  
+  .admin-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 25px rgba(0, 255, 255, 0.1);
+  }
+  
+  .admin-card h3 {
+    color: #00ffff;
+    margin-bottom: 1rem;
+  }
+  
+  .admin-card ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .admin-card li {
+    background: #292942;
+    margin-bottom: 0.6rem;
+    padding: 0.6rem;
+    border-radius: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.95rem;
+  }
+  
+  .admin-card li button {
+    margin-left: 5px;
+    padding: 4px 8px;
+    font-size: 0.75rem;
+    border: none;
+    background: #00ffff22;
+    color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  
+  .admin-card li button:hover {
+    background: #00ffff88;
+  }
+  
+  .user-details p {
+    margin: 0.4rem 0;
+    color: #ccc;
+  }
+  
+  .analytics img {
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.1);
+  }
+  
