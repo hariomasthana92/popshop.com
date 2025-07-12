@@ -14,30 +14,51 @@ dotenv.config();
 
 const app = express();
 
-app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true })); 
+// ✅ CORS configuration to allow only your frontend domain
+const allowedOrigins = ['https://popshop-ten.vercel.app'];
 
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
+}));
+
+// Middleware
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// Connect to DB
 connectDB();
 
+// Create HTTP server and bind Socket.io
 const server = createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: '*',
+    origin: allowedOrigins,
+    credentials: true,
   }
 });
+
+// Attach socket instance to app
 app.set('io', io);
 
+// Test route
 app.get('/', (req, res) => {
   res.send('API is running');
 });
 
+// API Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/requests', requestroutes);
 app.use('/api/responses', responseRoutes);
 app.use('/api/users', userRoutes);
 
-// Socket.io events
+// Socket.io Events
 io.on('connection', (socket) => {
   console.log('A user connected:', socket.id);
 
@@ -56,12 +77,12 @@ const PORT = process.env.PORT || 5000;
 function getLocalIP() {
   const interfaces = os.networkInterfaces();
   for (const interfaceName in interfaces) {
-      for (const iface of interfaces[interfaceName]) {
-          if (iface.family === 'IPv4' && !iface.internal) {
-              return iface.address;
-          }
+    for (const iface of interfaces[interfaceName]) {
+      if (iface.family === 'IPv4' && !iface.internal) {
+        return iface.address;
       }
     }
+  }
   return 'localhost';
 }
 
