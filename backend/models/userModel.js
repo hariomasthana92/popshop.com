@@ -11,17 +11,7 @@ const userSchema = new mongoose.Schema(
       enum: ['user', 'buyer', 'shopkeeper'],
       required: true,
     },
-    location: {
-      type: {
-        type: String,
-        enum: ['Point'],
-        required: true,
-      },
-      coordinates: {
-        type: [Number],
-        required: true,
-      },
-    },
+    // location removed
   },
   { timestamps: true }
 );

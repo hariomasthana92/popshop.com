@@ -15,12 +15,13 @@
   "dependencies": {
     "bcryptjs": "^3.0.2",
     "cors": "^2.8.5",
-    "dotenv": "^16.5.0",
+    "dotenv": "^16.6.1",
     "express": "^4.21.2",
     "geohash": "^0.0.1",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.13.2",
-    "nodemon": "^3.1.9",
+    "nodemo": "^1.0.0",
+    "nodemon": "^3.1.10",
     "socket.io": "^4.8.1"
   }
 }

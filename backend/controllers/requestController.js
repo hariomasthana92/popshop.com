@@ -1,22 +1,28 @@
 import ProductRequest from "../models/productrequest.js";
+import axios from "axios";
 export const createRequest = async (req, res) => {
-    try {
-        const {productname, productquantity, price, status} = req.body;
-        const newRequest = new ProductRequest({
-            buyerid: req.user._id,
-            productname,
-            productquantity, 
-            location: {
-                type: "Point",
-                coordinates: [req.body.longitude, req.body.latitude]
-            }
-        });
+  try {
+    const { productname, productquantity, price, status } = req.body;
 
-        await newRequest.save();
-        res.status(201).json({message: "Product Request created!",request : newRequest});
-    }catch(error) {
-    res.status(500).json({message: error.message});
-}
+    const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+    const geoRes = await axios.get(`http://ip-api.com/json/${ip}`);
+    const { lat, lon } = geoRes.data;
+
+    const newRequest = new ProductRequest({
+      buyerid: req.user._id,
+      productname,
+      productquantity,
+      location: {
+        type: "Point",
+        coordinates: [lon, lat]
+      }
+    });
+
+    await newRequest.save();
+    res.status(201).json({ message: "Product Request created!", request: newRequest });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 };
 
 export const getNearRequests = async (req, res) => {
@@ -58,8 +64,6 @@ export const getMyRequests = async (req, res) => {
   };
 
 
-// added the delete request function
-
 export const deleteRequest = async (req, res) => {
   try {
     const { requestId } = req.params;
@@ -82,5 +86,3 @@ export const deleteRequest = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
-
-  

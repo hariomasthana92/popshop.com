@@ -6,8 +6,8 @@ const productrequestschema = new mongoose.Schema({
     productquantity: { type: Number, required: true },
     status: { type: String, enum: ["Searching", "Results"], default: "Searching" },
     location: {
-        type: { type: String, enum: ["Point"], default: "Point", required: true },
-        coordinates: { type: [Number], required: true }
+        type: { type: String, enum: ["Point"], default: "Point" },
+        coordinates: { type: [Number] }
     }
 }, { timestamps: true });
 
