@@ -1,4 +1,4 @@
-import mongoose, { connect } from "mongoose";
+import mongoose, {connect} from "mongoose";
 
 const connectDB = async () => {
     console.log("MongoDB URI :", "mongodb://localhost:27017" );

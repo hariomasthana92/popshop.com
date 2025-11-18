@@ -15,8 +15,8 @@ const BuyerDashboard = () => {
     productquantity: '',
     price: '',
     status: 'Searching',
-    longitude: '',
-    latitude: '',
+    // longitude: '',
+    // latitude: '',
   });
 
   const navigate = useNavigate();
@@ -88,8 +88,8 @@ const BuyerDashboard = () => {
         productquantity: '',
         price: '',
         status: 'Searching',
-        longitude: '',
-        latitude: '',
+        // longitude: '',
+        // latitude: '',
       });
     } catch (error) {
       alert('Error creating request');
@@ -163,8 +163,8 @@ const BuyerDashboard = () => {
               <option value="Pending">Pending</option>
               <option value="Completed">Completed</option>
             </select>
-            <input type="number" name="longitude" value={form.longitude} onChange={handleChange} placeholder="Longitude" required />
-            <input type="number" name="latitude" value={form.latitude} onChange={handleChange} placeholder="Latitude" required />
+            {/* <input type="number" name="longitude" value={form.longitude} onChange={handleChange} placeholder="Longitude" required />
+            <input type="number" name="latitude" value={form.latitude} onChange={handleChange} placeholder="Latitude" required /> */}
             <button type="submit">Submit</button>
           </form>
         </div>

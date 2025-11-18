@@ -5,10 +5,7 @@ import './CreateRequest.css';
 const CreateRequest = () => {
   const [productname, setProductName] = useState('');
   const [productquantity, setProductQuantity] = useState('');
-  const [price, setPrice] = useState('');
-  const [status, setStatus] = useState('Searching');
-  const [longitude, setLongitude] = useState('');
-  const [latitude, setLatitude] = useState('');
+  const [location, setLocation] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -16,19 +13,12 @@ const CreateRequest = () => {
       await axios.post('/api/requests/create', {
         productname,
         productquantity,
-        price,
-        status,
-        longitude,
-        latitude
+        location
       });
       alert('Request created!');
-      // Clear form
       setProductName('');
       setProductQuantity('');
-      setPrice('');
-      setStatus('Searching');
-      setLongitude('');
-      setLatitude('');
+      setLocation('');
     } catch (error) {
       if (error.response) {
         alert(error.response.data.message || 'Error creating request');
@@ -59,33 +49,10 @@ const CreateRequest = () => {
           required
         />
         <input
-          type="number"
-          value={price}
-          onChange={(e) => setPrice(e.target.value)}
-          placeholder="Enter price"
-          required
-        />
-        <select
-          value={status}
-          onChange={(e) => setStatus(e.target.value)}
-          required
-        >
-          <option value="Searching">Searching</option>
-          <option value="Pending">Pending</option>
-          <option value="Completed">Completed</option>
-        </select>
-        <input
-          type="number"
-          value={longitude}
-          onChange={(e) => setLongitude(e.target.value)}
-          placeholder="Enter longitude"
-          required
-        />
-        <input
-          type="number"
-          value={latitude}
-          onChange={(e) => setLatitude(e.target.value)}
-          placeholder="Enter latitude"
+          type="text"
+          value={location}
+          onChange={(e) => setLocation(e.target.value)}
+          placeholder="Enter location"
           required
         />
         <button type="submit">Submit</button>
